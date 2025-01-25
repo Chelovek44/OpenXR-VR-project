@@ -4,10 +4,10 @@ using HurricaneVR.Framework.Core;
 using HurricaneVR.Framework.Core.Grabbers;
 using HurricaneVR.Framework.Core.Player;
 using HurricaneVR.Framework.Shared;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace HurricaneVR.TechDemo.Scripts
 {
@@ -41,8 +41,11 @@ namespace HurricaneVR.TechDemo.Scripts
         [Header("Interactive elements")]
         [SerializeField] private CounterProblems cntProblems;
         [SerializeField] private GameObject menu;
+        [SerializeField] private Canvas menuCanvas;
         [SerializeField] private GameObject tool;
         [SerializeField] private GameObject textForCheck;
+        [SerializeField] private GameObject errorMessage;
+        [SerializeField] private float timeMessageShowing = 4f;
 
         private bool Paused;
         private bool _itemIsChecked;
@@ -247,13 +250,16 @@ namespace HurricaneVR.TechDemo.Scripts
 
                 if (_itemIsChecked is false)
                 {
+                    StartCoroutine(ShowerrorMessage());
                     cntProblems.AddProblem();
                 }
-
-                LeftHand.transform.parent = LeftHand.Target;
-                RightHand.transform.parent = RightHand.Target;
-                _itemPicked = true;
-                menu.SetActive(false);
+                else
+                {
+                    LeftHand.transform.parent = LeftHand.Target;
+                    RightHand.transform.parent = RightHand.Target;
+                    _itemPicked = true;
+                    menu.SetActive(false);
+                }               
             }
         }
 
@@ -270,6 +276,15 @@ namespace HurricaneVR.TechDemo.Scripts
 
         public void CloseMenu()
         {
+            menu.SetActive(false);
+        }
+
+        private IEnumerator ShowerrorMessage()
+        {
+            errorMessage.SetActive(true);
+            menuCanvas.enabled = false;
+            yield return new WaitForSeconds(timeMessageShowing);
+            errorMessage.SetActive(false);
             menu.SetActive(false);
         }
     }
