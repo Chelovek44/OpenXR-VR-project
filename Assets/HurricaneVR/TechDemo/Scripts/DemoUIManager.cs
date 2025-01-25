@@ -39,9 +39,16 @@ namespace HurricaneVR.TechDemo.Scripts
         private Transform rightParent;
 
         [Header("Interactive elements")]
-        [SerializeField] private List<InteractiveObjects> workersInstrumentals;
+        [SerializeField] private CounterProblems cntProblems;
+        [SerializeField] private GameObject menu;
+        [SerializeField] private GameObject tool;
+        [SerializeField] private GameObject textForCheck;
 
         private bool Paused;
+        private bool _itemIsChecked;
+        private bool _itemPicked;
+
+        public bool ItemPicked() => _itemPicked;
 
         void Start()
         {
@@ -67,8 +74,8 @@ namespace HurricaneVR.TechDemo.Scripts
             }
 
 
-            if(LeftHand) leftparent = LeftHand.transform.parent;
-            if(RightHand)rightParent = RightHand.transform.parent;
+            if (LeftHand) leftparent = LeftHand.transform.parent;
+            if (RightHand) rightParent = RightHand.transform.parent;
 
             UpdateSitStandButton();
             UpdateForceGrabButton();
@@ -222,6 +229,40 @@ namespace HurricaneVR.TechDemo.Scripts
 
                 Paused = !Paused;
             }
+        }
+
+        public void PickItem()
+        {
+            if (LeftHand && RightHand)
+            {
+                tool.SetActive(false);
+
+                if (_itemIsChecked is false)
+                {
+                    cntProblems.AddProblem();
+                }
+
+                LeftHand.transform.parent = LeftHand.Target;
+                RightHand.transform.parent = RightHand.Target;
+                _itemPicked = true;
+                menu.SetActive(false);
+            }
+        }
+
+        public void CheckItem()
+        {
+            if (LeftHand && RightHand)
+            {
+                textForCheck.SetActive(true);
+                _itemIsChecked = true;
+                LeftHand.transform.parent = LeftHand.Target;
+                RightHand.transform.parent = RightHand.Target;
+            }
+        }
+
+        public void CloseMenu()
+        {
+            menu.SetActive(false);
         }
     }
 }
