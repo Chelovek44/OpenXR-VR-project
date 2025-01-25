@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class MenuLogic : MonoBehaviour
 {
-    [SerializeField] private DemoUIManager menuStatus;
     [SerializeField] private GameObject menu;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<CharacterController>() && menuStatus.ItemPicked() is false)
+        if (other.GetComponent<CharacterController>())
         {
             menu.SetActive(true);
         }

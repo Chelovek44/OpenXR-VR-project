@@ -100,6 +100,14 @@ namespace HurricaneVR.TechDemo.Scripts
             UpdateRightForceButton();
         }
 
+        private void OnEnable()
+        {
+            if (_itemPicked)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
         private void OnLineGrabTriggerChanged(bool arg0)
         {
             HVRSettings.Instance.LineGrabTriggerLoose = arg0;
