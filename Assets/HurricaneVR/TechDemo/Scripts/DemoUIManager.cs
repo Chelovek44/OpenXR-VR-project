@@ -7,6 +7,7 @@ using HurricaneVR.Framework.Shared;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace HurricaneVR.TechDemo.Scripts
 {
@@ -37,7 +38,20 @@ namespace HurricaneVR.TechDemo.Scripts
         private Transform leftparent;
         private Transform rightParent;
 
+        [Header("Interactive elements")]
+        [SerializeField] private CounterProblems cntProblems;
+        [SerializeField] private GameObject menu;
+        [SerializeField] private Canvas menuCanvas;
+        [SerializeField] private GameObject tool;
+        [SerializeField] private GameObject textForCheck;
+        [SerializeField] private GameObject errorMessage;
+        [SerializeField] private float timeMessageShowing = 4f;
+
         private bool Paused;
+        private bool _itemIsChecked;
+        private bool _itemPicked;
+
+        public bool ItemPicked() => _itemPicked;
 
         void Start()
         {
@@ -63,8 +77,8 @@ namespace HurricaneVR.TechDemo.Scripts
             }
 
 
-            if(LeftHand) leftparent = LeftHand.transform.parent;
-            if(RightHand)rightParent = RightHand.transform.parent;
+            if (LeftHand) leftparent = LeftHand.transform.parent;
+            if (RightHand) rightParent = RightHand.transform.parent;
 
             UpdateSitStandButton();
             UpdateForceGrabButton();
@@ -87,6 +101,14 @@ namespace HurricaneVR.TechDemo.Scripts
 
             UpdateLeftForceButton();
             UpdateRightForceButton();
+        }
+
+        private void OnEnable()
+        {
+            if (_itemPicked)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         private void OnLineGrabTriggerChanged(bool arg0)
@@ -218,6 +240,52 @@ namespace HurricaneVR.TechDemo.Scripts
 
                 Paused = !Paused;
             }
+        }
+
+        public void PickItem()
+        {
+            if (LeftHand && RightHand)
+            {
+                tool.SetActive(false);
+
+                if (_itemIsChecked is false)
+                {
+                    StartCoroutine(ShowerrorMessage());
+                    cntProblems.AddProblem();
+                }
+                else
+                {
+                    LeftHand.transform.parent = LeftHand.Target;
+                    RightHand.transform.parent = RightHand.Target;
+                    _itemPicked = true;
+                    menu.SetActive(false);
+                }               
+            }
+        }
+
+        public void CheckItem()
+        {
+            if (LeftHand && RightHand)
+            {
+                textForCheck.SetActive(true);
+                _itemIsChecked = true;
+                LeftHand.transform.parent = LeftHand.Target;
+                RightHand.transform.parent = RightHand.Target;
+            }
+        }
+
+        public void CloseMenu()
+        {
+            menu.SetActive(false);
+        }
+
+        private IEnumerator ShowerrorMessage()
+        {
+            errorMessage.SetActive(true);
+            menuCanvas.enabled = false;
+            yield return new WaitForSeconds(timeMessageShowing);
+            errorMessage.SetActive(false);
+            menu.SetActive(false);
         }
     }
 }
