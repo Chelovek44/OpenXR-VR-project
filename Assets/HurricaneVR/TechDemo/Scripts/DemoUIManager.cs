@@ -4,6 +4,7 @@ using HurricaneVR.Framework.Core;
 using HurricaneVR.Framework.Core.Grabbers;
 using HurricaneVR.Framework.Core.Player;
 using HurricaneVR.Framework.Shared;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,9 @@ namespace HurricaneVR.TechDemo.Scripts
 
         private Transform leftparent;
         private Transform rightParent;
+
+        [Header("Interactive elements")]
+        [SerializeField] private List<InteractiveObjects> workersInstrumentals;
 
         private bool Paused;
 
