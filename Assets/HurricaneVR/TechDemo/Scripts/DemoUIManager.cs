@@ -44,7 +44,10 @@ namespace HurricaneVR.TechDemo.Scripts
         [SerializeField] private Canvas menuCanvas;
         [SerializeField] private GameObject tool;
         [SerializeField] private GameObject textForCheck;
+        [SerializeField] private GameObject buttonForPick;
+        [SerializeField] private GameObject buttonForRecycle;
         [SerializeField] private GameObject errorMessage;
+        [SerializeField] private bool brokenitem;
         [SerializeField] private float timeMessageShowing = 4f;
 
         private bool Paused;
@@ -267,10 +270,22 @@ namespace HurricaneVR.TechDemo.Scripts
         {
             if (LeftHand && RightHand)
             {
-                textForCheck.SetActive(true);
-                _itemIsChecked = true;
-                LeftHand.transform.parent = LeftHand.Target;
-                RightHand.transform.parent = RightHand.Target;
+                if (brokenitem == true)
+                {
+                    textForCheck.SetActive(true);
+                    buttonForPick.SetActive(false);
+                    buttonForRecycle.SetActive(true);
+                    _itemIsChecked = true;
+                    LeftHand.transform.parent = LeftHand.Target;
+                    RightHand.transform.parent = RightHand.Target;
+                }
+                else
+                {
+                    textForCheck.SetActive(true);
+                    _itemIsChecked = true;
+                    LeftHand.transform.parent = LeftHand.Target;
+                    RightHand.transform.parent = RightHand.Target;
+                }
             }
         }
 
