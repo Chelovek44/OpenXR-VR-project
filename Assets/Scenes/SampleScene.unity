@@ -7377,14 +7377,13 @@ MonoBehaviour:
   PressButton: 1
   UICanvases:
   - {fileID: 4018361016088685831}
-  - {fileID: 823282914}
-  - {fileID: 823282914}
   - {fileID: 349699382}
   - {fileID: 497832133}
   - {fileID: 1136381474}
   - {fileID: 1420425146}
   - {fileID: 861855063}
   - {fileID: 1219673298}
+  - {fileID: 823282914}
   AngleDragThreshold: 1
 --- !u!114 &633746562
 MonoBehaviour:
@@ -8853,16 +8852,16 @@ MonoBehaviour:
   RightForce: {fileID: 0}
   LeftHand: {fileID: 0}
   RightHand: {fileID: 0}
-  cntProblems: {fileID: 633746560}
-  menu: {fileID: 4018361014846133001}
-  menuCanvas: {fileID: 0}
-  tool: {fileID: 1587502251}
-  textForCheck: {fileID: 355962165}
+  cntProblems: {fileID: 0}
+  menu: {fileID: 0}
+  menuCanvas: {fileID: 823282914}
+  tool: {fileID: 0}
+  textForCheck: {fileID: 0}
   buttonForPick: {fileID: 0}
   buttonForRecycle: {fileID: 0}
   errorMessage: {fileID: 0}
   brokenitem: 0
-  timeMessageShowing: 4
+  timeMessageShowing: 2
 --- !u!114 &823282910
 MonoBehaviour:
   m_ObjectHideFlags: 0

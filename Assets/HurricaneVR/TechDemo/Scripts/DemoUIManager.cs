@@ -48,7 +48,7 @@ namespace HurricaneVR.TechDemo.Scripts
         [SerializeField] private GameObject buttonForRecycle;
         [SerializeField] private GameObject errorMessage;
         [SerializeField] private bool brokenitem;
-        [SerializeField] private float timeMessageShowing = 4f;
+        [SerializeField] private float timeMessageShowing = 2f;
 
         private bool Paused;
         private bool _itemIsChecked;
@@ -276,8 +276,6 @@ namespace HurricaneVR.TechDemo.Scripts
                     buttonForPick.SetActive(false);
                     buttonForRecycle.SetActive(true);
                     _itemIsChecked = true;
-                    LeftHand.transform.parent = LeftHand.Target;
-                    RightHand.transform.parent = RightHand.Target;
                 }
                 else
                 {
